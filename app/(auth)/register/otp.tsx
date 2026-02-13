@@ -1,8 +1,10 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRef, useState } from 'react';
+
+const { height } = Dimensions.get('window');
 
 export default function RegisterStep4() {
     const router = useRouter();
@@ -23,40 +25,181 @@ export default function RegisterStep4() {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-white px-6">
-            <View className="flex-row items-center mt-4 mb-6">
-                <TouchableOpacity onPress={() => router.back()} className="p-2">
-                    <Ionicons name="arrow-back" size={24} color="#303030" />
-                </TouchableOpacity>
-            </View>
+        <View style={styles.container}>
+            {/* Decorative circles */}
+            <View style={[styles.circle, styles.redCircle]} />
+            <View style={[styles.circle, styles.yellowCircle]} />
+            <View style={[styles.circle, styles.blueCircle]} />
+            <View style={[styles.circle, styles.purpleCircle]} />
 
-            <Text className="text-xl font-poppins-bold mb-2 text-text">Konfirmasi Pendaftaran</Text>
-            <Text className="text-textSec font-poppins mb-8">Kode OTP sudah dikirimkan ke email terdaftar</Text>
+            <SafeAreaView style={styles.safeArea}>
+                <View style={styles.content}>
+                    {/* Back Button */}
+                    <TouchableOpacity
+                        onPress={() => router.back()}
+                        style={styles.backButton}
+                    >
+                        <Ionicons name="arrow-back" size={24} color="#000000" />
+                    </TouchableOpacity>
 
-            <View className="flex-row justify-between mb-4">
-                {otp.map((digit, index) => (
-                    <TextInput
-                        key={index}
-                        ref={(ref) => { inputs.current[index] = ref }}
-                        className={`w-12 h-14 border rounded-xl text-center text-xl font-poppins-bold ${digit ? 'border-primary bg-blue-50 text-primary' : 'border-gray-300 bg-white'}`}
-                        maxLength={1}
-                        keyboardType="number-pad"
-                        value={digit}
-                        onChangeText={(text) => handleChange(text, index)}
-                    />
-                ))}
-            </View>
+                    {/* Title and Description */}
+                    <Text style={styles.title}>Konfirmasi Pendaftaran</Text>
+                    <Text style={styles.description}>Kode OTP sudah dikirimkan ke email terdaftar</Text>
 
-            <TouchableOpacity>
-                <Text className="text-primary font-poppins-medium mb-8">Kirim ulang OTP <Text className="text-blue-400">00:47</Text></Text>
-            </TouchableOpacity>
+                    {/* OTP Input Boxes */}
+                    <View style={styles.otpContainer}>
+                        {otp.map((digit, index) => (
+                            <TextInput
+                                key={index}
+                                ref={(ref) => { inputs.current[index] = ref }}
+                                style={styles.otpInput}
+                                maxLength={1}
+                                keyboardType="number-pad"
+                                value={digit}
+                                onChangeText={(text) => handleChange(text, index)}
+                            />
+                        ))}
+                    </View>
 
-            <TouchableOpacity
-                className="bg-primary w-full p-4 rounded-xl items-center mt-4"
-                onPress={() => router.replace('/(tabs)')}
-            >
-                <Text className="text-white font-poppins-semibold text-lg">Konfirmasi</Text>
-            </TouchableOpacity>
-        </SafeAreaView>
+                    {/* Resend OTP Timer */}
+                    <View style={styles.timerContainer}>
+                        <Text style={styles.timerText}>Kirim ulang OTP  </Text>
+                        <Text style={styles.timerValue}>00:47</Text>
+                    </View>
+                </View>
+
+                {/* Confirmation Button - Fixed at Bottom */}
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.confirmButton}
+                        onPress={() => router.replace('/(tabs)')}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={styles.confirmButtonText}>Konfirmasi</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+    },
+    safeArea: {
+        flex: 1,
+    },
+    content: {
+        flex: 1,
+        paddingHorizontal: 24,
+    },
+    backButton: {
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        marginTop: 8,
+    },
+    title: {
+        fontSize: 24,
+        fontFamily: 'Poppins_700Bold',
+        color: '#000000',
+        marginTop: 24,
+        marginBottom: 12,
+    },
+    description: {
+        fontSize: 14,
+        fontFamily: 'Poppins_400Regular',
+        color: '#6B7280',
+        marginBottom: 32,
+    },
+    otpContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 20,
+    },
+    otpInput: {
+        width: 48,
+        height: 56,
+        borderWidth: 2,
+        borderColor: '#5D7CE5',
+        borderRadius: 12,
+        textAlign: 'center',
+        fontSize: 20,
+        fontFamily: 'Poppins_600SemiBold',
+        backgroundColor: '#FFFFFF',
+        color: '#000000',
+    },
+    timerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    timerText: {
+        fontSize: 14,
+        fontFamily: 'Poppins_400Regular',
+        color: '#000000',
+    },
+    timerValue: {
+        fontSize: 14,
+        fontFamily: 'Poppins_400Regular',
+        color: '#5D7CE5',
+    },
+    buttonContainer: {
+        paddingHorizontal: 24,
+        paddingBottom: 32,
+    },
+    confirmButton: {
+        backgroundColor: '#4E74F9',
+        borderRadius: 12,
+        paddingVertical: 16,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    confirmButtonText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontFamily: 'Poppins_600SemiBold',
+    },
+    // Decorative circles
+    circle: {
+        position: 'absolute',
+        borderRadius: 9999,
+    },
+    redCircle: {
+        width: 160,
+        height: 160,
+        backgroundColor: '#FCA5A5',
+        opacity: 0.6,
+        top: -80,
+        left: -80,
+    },
+    yellowCircle: {
+        width: 128,
+        height: 128,
+        backgroundColor: '#FDE047',
+        opacity: 0.7,
+        bottom: 200,
+        right: -80,
+    },
+    blueCircle: {
+        width: 80,
+        height: 80,
+        backgroundColor: '#93C5FD',
+        opacity: 0.6,
+        bottom: height * 0.4,
+        left: 20,
+    },
+    purpleCircle: {
+        width: 200,
+        height: 200,
+        backgroundColor: '#DDD6FE',
+        opacity: 0.5,
+        bottom: -100,
+        left: -100,
+    },
+});
