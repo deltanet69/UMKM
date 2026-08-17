@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "GrowUMKM",
-    "slug": "GrowUMKM",
+    "slug": "growumkm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/umkm/fav.png",
@@ -51,6 +51,12 @@
       "eas": {
         "projectId": "fcc62059-d90b-4547-aeb2-9ba3cf5a7c30"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/fcc62059-d90b-4547-aeb2-9ba3cf5a7c30"
     }
   }
 }
