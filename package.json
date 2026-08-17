@@ -9,7 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "npx expo export -p web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "postinstall": "npx patch-package"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.1",
