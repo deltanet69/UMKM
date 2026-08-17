@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "build": "npx expo export -p web",
     "lint": "expo lint",
-    "postinstall": "npx patch-package"
+    "postinstall": "node ./scripts/patch-router.js"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.1",
@@ -52,7 +52,6 @@
     "babel-preset-expo": "^57.0.7",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
-    "patch-package": "^8.0.1",
     "typescript": "~5.9.2"
   },
   "private": true
