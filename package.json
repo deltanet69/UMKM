@@ -8,7 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "npx expo export -p web",
+    "build": "node ./scripts/patch-router.js && npx expo export -p web -c",
     "lint": "expo lint",
     "postinstall": "node ./scripts/patch-router.js"
   },
