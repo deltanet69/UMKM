@@ -10,9 +10,9 @@ for (const file of files) {
   if (fs.existsSync(file)) {
     let content = fs.readFileSync(file, 'utf8');
     
-    // Always ensure the first argument is process.env.EXPO_ROUTER_APP_ROOT
-    content = content.replace(/'\.\.\/\.\.\/app'/g, "process.env.EXPO_ROUTER_APP_ROOT");
-    
+    // Vercel/Linux absolute paths break require.context regex ^(?:\\.\\/)
+    // We MUST force a relative path from node_modules/expo-router/
+    content = content.replace(/process\.env\.EXPO_ROUTER_APP_ROOT/g, "'../../app'");
     if (file.includes('_ctx.web.js')) {
       // Always ensure the mode is 'sync'
       content = content.replace(/process\.env\.EXPO_ROUTER_IMPORT_MODE/g, "'sync'");
