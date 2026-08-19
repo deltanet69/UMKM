@@ -7,7 +7,7 @@
     "icon": "./assets/images/umkm/fav.png",
     "scheme": "growumkm",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
@@ -28,6 +28,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "./scripts/withAndroidOptimizations.js",
       "expo-router",
       [
         "expo-splash-screen",
